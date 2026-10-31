@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quitanda do Zé - Frutas Frescas e Entregas</title>
+  <style>
+    /* Estilos Globais e Tema de Cores */
+    :root {
+      --primary-color: #2e7d32; /* Verde hortifrúti */
+      --secondary-color: #f57c00; /* Laranja cítrico */
+      --bg-color: #f4f8f3; /* Fundo suave */
+      --card-bg: #ffffff;
+      --text-color: #333333;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-bottom: 40px;
+    }
+
+    /* Cabeçalho e Logotipo */
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .logo-icon {
+      background-color: var(--secondary-color);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+    }
+
+    /* Banner do Telefone e Pedidos */
+    .contact-banner {
+      background-color: var(--secondary-color);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 900px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .contact-banner a {
+      color: white;
+      text-decoration: underline;
+    }
+
+    /* Layout Principal */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    /* Tabela de Produtos */
+    .table-container {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px;
+      font-size: 1rem;
+    }
+
+    td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .product-code {
+      font-weight: bold;
+      color: var(--secondary-color);
+    }
+
+    /* Interatividade / Calculadora Simples de Seleção */
+    .interactive-section {
+      background-color: var(--card-bg);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .info-box {
+      background-color: #e8f5e9;
+      border-left: 4px solid var(--primary-color);
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 4px;
+    }
+
+    /* Rodapé */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho com Logo Criado em CSS/HTML -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon" title="Quitanda do Zé">🍎</div>
+      <div>
+        <h1>Quitanda do Zé</h1>
+        <p>Frutas Selecionadas e Entregas no Seu Bairro</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Banner com o Telefone para Pedidos -->
+    <div class="contact-banner">
+      📞 Ligue e faça seu pedido: <a href="tel:41999999999">(41) 99999-9999</a>
+      <div style="font-size: 0.9rem; font-weight: normal; margin-top: 5px;">Entregas rápidas de Segunda a Sábado</div>
+    </div>
+
+    <!-- Seção da Tabela de Frutas -->
+    <h2 class="section-title">Produtos Disponíveis Esta Semana</h2>
+    
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Produto</th>
+            <th>Preço (kg / un)</th>
+          </tr>
+        </thead>
+        <tbody id="lista-produtos">
+          <!-- Os produtos são inseridos dinamicamente pelo JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Instruções para o Cliente -->
+    <div class="interactive-section">
+      <h3>Como Fazer o Seu Pedido?</h3>
+      <ol style="margin-left: 20px; margin-top: 10px;">
+        <li>Anote o <strong>Código</strong> e o <strong>Nome</strong> das frutas de sua preferência.</li>
+        <li>Ligue para o número <strong>(41) 99999-9999</strong>.</li>
+        <li>Informe os códigos e as quantidades desejadas ao nosso atendente.</li>
+      </ol>
+      <div class="info-box">
+        💡 <em>Dica: As frutas desta lista são atualizadas semanalmente para garantir o melhor preço e frescor!</em>
+      </div>
+    </div>
+
+    <footer>
+      <p>© Quitanda do Zé — Qualidade e frescor no seu bairro.</p>
+    </footer>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Dados dos 5 produtos disponíveis semanalmente
+    const produtosSemana = [
+      { codigo: "FRU-001", nome: "Banana Prata", preco: 4.99, unidade: "kg" },
+      { codigo: "FRU-002", nome: "Maçã Gala", preco: 7.50, unidade: "kg" },
+      { codigo: "FRU-003", nome: "Mamão Formosa", preco: 6.80, unidade: "kg" },
+      { codigo: "FRU-004", nome: "Laranja Pera", preco: 3.99, unidade: "kg" },
+      { codigo: "FRU-005", nome: "Melancia", preco: 2.50, unidade: "kg" }
+    ];
+
+    // Função para renderizar a lista na tabela
+    function carregarTabela() {
+      const tbody = document.getElementById("lista-produtos");
+      tbody.innerHTML = ""; // Limpa o conteúdo
+
+      produtosSemana.forEach(produto => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td class="product-code">${produto.codigo}</td>
+          <td>${produto.nome}</td>
+          <td>R$ ${produto.preco.toFixed(2).replace('.', ',')} / ${produto.unidade}</td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Carrega a tabela assim que o documento estiver pronto
+    document.addEventListener("DOMContentLoaded", carregarTabela);
+  </script>
+
+</body>
+</html>
