@@ -3,243 +3,614 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quitanda do Zé - Frutas Frescas e Entregas</title>
+  <title>Quitanda do Zé - Ofertas e Hortifrúti Fresco</title>
   <style>
-    /* Estilos Globais e Tema de Cores */
     :root {
-      --primary-color: #2e7d32; /* Verde hortifrúti */
-      --secondary-color: #f57c00; /* Laranja cítrico */
-      --bg-color: #f4f8f3; /* Fundo suave */
+      --primary-red: #d32f2f;     /* Vermelho Mercado */
+      --secondary-red: #b71c1c;   
+      --accent-green: #2e7d32;    /* Verde Frescor */
+      --highlight-yellow: #fbc02d;/* Amarelo Oferta */
+      --bg: #f8f9fa;
       --card-bg: #ffffff;
-      --text-color: #333333;
+      --text: #212529;
+      --text-muted: #6c757d;
+      --border: #e9ecef;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-      padding-bottom: 40px;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
     }
 
-    /* Cabeçalho e Logotipo */
-    header {
-      background-color: var(--primary-color);
+    /* Faixa Superior de Oferta */
+    .top-bar {
+      background: linear-gradient(90deg, var(--secondary-red), var(--primary-red));
       color: white;
-      padding: 20px;
+      font-size: 0.9rem;
+      padding: 10px 0;
       text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      font-weight: bold;
+      letter-spacing: 0.5px;
     }
 
-    .logo-container {
+    .top-bar span {
+      background-color: var(--highlight-yellow);
+      color: #000;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 5px;
+    }
+
+    /* Cabeçalho */
+    header {
+      background: white;
+      border-bottom: 3px solid var(--primary-red);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 15px;
+      gap: 12px;
     }
 
-    .logo-icon {
-      background-color: var(--secondary-color);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--primary-red), var(--accent-green));
+      color: white;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 28px;
+      box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
     }
 
-    header h1 {
-      font-size: 2.2rem;
+    .brand-text h1 {
+      font-size: 1.5rem;
+      color: var(--primary-red);
+      font-weight: 800;
+      line-height: 1.1;
     }
 
-    /* Banner do Telefone e Pedidos */
-    .contact-banner {
-      background-color: var(--secondary-color);
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin: 20px auto;
-      max-width: 900px;
-      border-radius: 8px;
+    .brand-text p {
+      font-size: 0.85rem;
+      color: var(--accent-green);
+      font-weight: 600;
+    }
+
+    .phone-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffebee;
+      color: var(--secondary-red);
+      padding: 8px 16px;
+      border-radius: 50px;
       font-weight: bold;
-      font-size: 1.2rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .contact-banner a {
-      color: white;
-      text-decoration: underline;
+      font-size: 0.95rem;
+      border: 1px solid #ffcdd2;
     }
 
     /* Layout Principal */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
+    .main-container {
+      max-width: 1100px;
+      margin: 30px auto;
       padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 30px;
     }
 
-    .section-title {
-      text-align: center;
+    @media (max-width: 850px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .section-header {
       margin-bottom: 20px;
-      color: var(--primary-color);
+      border-left: 5px solid var(--primary-red);
+      padding-left: 12px;
     }
 
-    /* Tabela de Produtos */
-    .table-container {
-      background-color: var(--card-bg);
-      border-radius: 8px;
+    .section-header h2 {
+      font-size: 1.5rem;
+      color: var(--secondary-red);
+    }
+
+    /* Vitrine de Produtos */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
       overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      margin-bottom: 30px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
 
-    table {
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+
+    /* Container de Imagem das Frutas */
+    .product-visual {
       width: 100%;
-      border-collapse: collapse;
-      text-align: left;
+      height: 160px;
+      position: relative;
+      background-color: #fff;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
     }
 
-    th {
-      background-color: var(--primary-color);
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tag-oferta {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--primary-red);
       color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .product-details {
       padding: 15px;
-      font-size: 1rem;
-    }
-
-    td {
-      padding: 12px 15px;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    tr:hover {
-      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
 
     .product-code {
+      font-size: 0.75rem;
       font-weight: bold;
-      color: var(--secondary-color);
+      color: var(--primary-red);
+      letter-spacing: 0.5px;
     }
 
-    /* Interatividade / Calculadora Simples de Seleção */
-    .interactive-section {
-      background-color: var(--card-bg);
-      padding: 20px;
+    .product-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 4px 0 8px 0;
+      color: var(--text);
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent-green);
+      margin-bottom: 12px;
+    }
+
+    .product-price span {
+      font-size: 0.85rem;
+      font-weight: normal;
+      color: var(--text-muted);
+    }
+
+    .add-btn {
+      margin-top: auto;
+      background: var(--accent-green);
+      color: white;
+      border: none;
+      padding: 11px;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
-    .info-box {
-      background-color: #e8f5e9;
-      border-left: 4px solid var(--primary-color);
-      padding: 12px;
-      margin-top: 15px;
-      border-radius: 4px;
+    .add-btn:hover {
+      background: #1b5e20;
     }
 
-    /* Rodapé */
-    footer {
-      text-align: center;
-      margin-top: 40px;
+    /* Resumo do Pedido / Carrinho */
+    .cart-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 2px solid #ffcdd2;
+      padding: 20px;
+      position: sticky;
+      top: 90px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .cart-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #ffebee;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--secondary-red);
+    }
+
+    .cart-items {
+      max-height: 280px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border);
       font-size: 0.9rem;
-      color: #666;
+    }
+
+    .cart-item-info strong {
+      display: block;
+      color: var(--text);
+    }
+
+    .cart-item-info small {
+      color: var(--text-muted);
+    }
+
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-btn {
+      background: #ffebee;
+      color: var(--primary-red);
+      border: 1px solid #ffcdd2;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .qty-btn:hover {
+      background: var(--primary-red);
+      color: white;
+    }
+
+    .cart-total {
+      border-top: 2px solid var(--border);
+      padding-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--secondary-red);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: #25d366;
+      color: white;
+      border: none;
+      padding: 13px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);
+      transition: transform 0.1s;
+    }
+
+    .checkout-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .call-btn {
+      width: 100%;
+      background: #fff3e0;
+      color: #e65100;
+      border: 1px solid #ffe0b2;
+      padding: 11px;
+      border-radius: 8px;
+      font-weight: 700;
+      margin-top: 10px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+
+    .empty-cart-msg {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      padding: 20px 0;
+    }
+
+    footer {
+      background: white;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Cabeçalho com Logo Criado em CSS/HTML -->
+  <!-- Top Bar -->
+  <div class="top-bar">
+    🔥 OFERTAS DA SEMANA — NA QUITANDA DO ZÉ <span>ENTREGA RÁPIDA NO BAIRRO</span>
+  </div>
+
+  <!-- Header -->
   <header>
-    <div class="logo-container">
-      <div class="logo-icon" title="Quitanda do Zé">🍎</div>
-      <div>
-        <h1>Quitanda do Zé</h1>
-        <p>Frutas Selecionadas e Entregas no Seu Bairro</p>
+    <div class="header-content">
+      <div class="brand">
+        <div class="brand-logo">🍉</div>
+        <div class="brand-text">
+          <h1>Quitanda do Zé</h1>
+          <p>Hortifrúti Fresco & Preço de Mercado</p>
+        </div>
+      </div>
+      <div class="phone-badge">
+        📞 Ligue: <strong>(41) 99999-9999</strong>
       </div>
     </div>
   </header>
 
-  <div class="container">
-    <!-- Banner com o Telefone para Pedidos -->
-    <div class="contact-banner">
-      📞 Ligue e faça seu pedido: <a href="tel:41999999999">(41) 99999-9999</a>
-      <div style="font-size: 0.9rem; font-weight: normal; margin-top: 5px;">Entregas rápidas de Segunda a Sábado</div>
-    </div>
-
-    <!-- Seção da Tabela de Frutas -->
-    <h2 class="section-title">Produtos Disponíveis Esta Semana</h2>
+  <!-- Container Principal -->
+  <div class="main-container">
     
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Produto</th>
-            <th>Preço (kg / un)</th>
-          </tr>
-        </thead>
-        <tbody id="lista-produtos">
-          <!-- Os produtos são inseridos dinamicamente pelo JavaScript -->
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Instruções para o Cliente -->
-    <div class="interactive-section">
-      <h3>Como Fazer o Seu Pedido?</h3>
-      <ol style="margin-left: 20px; margin-top: 10px;">
-        <li>Anote o <strong>Código</strong> e o <strong>Nome</strong> das frutas de sua preferência.</li>
-        <li>Ligue para o número <strong>(41) 99999-9999</strong>.</li>
-        <li>Informe os códigos e as quantidades desejadas ao nosso atendente.</li>
-      </ol>
-      <div class="info-box">
-        💡 <em>Dica: As frutas desta lista são atualizadas semanalmente para garantir o melhor preço e frescor!</em>
+    <!-- Vitrine de Produtos -->
+    <main>
+      <div class="section-header">
+        <h2>Frutas Selecionadas da Semana</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Selecione os produtos abaixo para montar seu pedido:</p>
       </div>
-    </div>
 
-    <footer>
-      <p>© Quitanda do Zé — Qualidade e frescor no seu bairro.</p>
-    </footer>
+      <div class="products-grid" id="produtos-container">
+        <!-- Produtos inseridos via JS -->
+      </div>
+    </main>
+
+    <!-- Carrinho / Resumo do Pedido -->
+    <aside>
+      <div class="cart-card">
+        <div class="cart-title">
+          <span>🛒 Meu Pedido</span>
+          <span id="cart-count">0 itens</span>
+        </div>
+
+        <div id="cart-items" class="cart-items">
+          <p class="empty-cart-msg">Seu carrinho está vazio.<br>Clique em "+ Adicionar" nas frutas!</p>
+        </div>
+
+        <div class="cart-total">
+          <div class="total-row">
+            <span>Total:</span>
+            <span id="cart-total-value">R$ 0,00</span>
+          </div>
+        </div>
+
+        <button class="checkout-btn" onclick="enviarWhatsApp()">
+          💬 Enviar Pedido via WhatsApp
+        </button>
+
+        <a href="tel:41999999999" class="call-btn">
+          📞 Ligar para a Quitanda
+        </a>
+      </div>
+    </aside>
+
   </div>
 
-  <!-- JavaScript -->
+  <footer>
+    <p>© Quitanda do Zé — Qualidade, frescor e preço baixo no seu bairro.</p>
+  </footer>
+
   <script>
-    // Dados dos 5 produtos disponíveis semanalmente
-    const produtosSemana = [
-      { codigo: "FRU-001", nome: "Banana Prata", preco: 4.99, unidade: "kg" },
-      { codigo: "FRU-002", nome: "Maçã Gala", preco: 7.50, unidade: "kg" },
-      { codigo: "FRU-003", nome: "Mamão Formosa", preco: 6.80, unidade: "kg" },
-      { codigo: "FRU-004", nome: "Laranja Pera", preco: 3.99, unidade: "kg" },
-      { codigo: "FRU-005", nome: "Melancia", preco: 2.50, unidade: "kg" }
+    // 5 Produtos com URLs de fotos de frutas + tratamento de segurança onerror
+    const produtos = [
+      {
+        codigo: "COD-001",
+        nome: "Banana Prata Extra",
+        preco: 4.99,
+        unidade: "kg",
+        imagem: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=500&q=80",
+        fallbackEmoji: "🍌"
+      },
+      {
+        codigo: "COD-002",
+        nome: "Maçã Gala Selecionada",
+        preco: 7.50,
+        unidade: "kg",
+        imagem: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=500&q=80",
+        fallbackEmoji: "🍎"
+      },
+      {
+        codigo: "COD-003",
+        nome: "Mamão Formosa Doce",
+        preco: 6.80,
+        unidade: "kg",
+        imagem: "https://images.unsplash.com/photo-1517260739337-6799d239ce83?auto=format&fit=crop&w=500&q=80",
+        fallbackEmoji: "🥭"
+      },
+      {
+        codigo: "COD-004",
+        nome: "Laranja Pera para Suco",
+        preco: 3.99,
+        unidade: "kg",
+        imagem: "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&w=500&q=80",
+        fallbackEmoji: "🍊"
+      },
+      {
+        codigo: "COD-005",
+        nome: "Melancia Vermelhinha",
+        preco: 2.50,
+        unidade: "kg",
+        imagem: "https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=500&q=80",
+        fallbackEmoji: "🍉"
+      }
     ];
 
-    // Função para renderizar a lista na tabela
-    function carregarTabela() {
-      const tbody = document.getElementById("lista-produtos");
-      tbody.innerHTML = ""; // Limpa o conteúdo
+    let carrinho = [];
 
-      produtosSemana.forEach(produto => {
-        const tr = document.createElement("tr");
-
-        tr.innerHTML = `
-          <td class="product-code">${produto.codigo}</td>
-          <td>${produto.nome}</td>
-          <td>R$ ${produto.preco.toFixed(2).replace('.', ',')} / ${produto.unidade}</td>
-        `;
-
-        tbody.appendChild(tr);
-      });
+    function renderizarProdutos() {
+      const container = document.getElementById('produtos-container');
+      container.innerHTML = produtos.map(p => `
+        <div class="product-card">
+          <div class="product-visual">
+            <span class="tag-oferta">Oferta</span>
+            <img src="${p.imagem}" 
+                 alt="${p.nome}" 
+                 class="product-image" 
+                 onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\\'tag-oferta\\'>Oferta</span><span style=\\'font-size:70px;\\'>${p.fallbackEmoji}</span>';">
+          </div>
+          <div class="product-details">
+            <span class="product-code">${p.codigo}</span>
+            <h3 class="product-title">${p.nome}</h3>
+            <div class="product-price">
+              R$ ${p.preco.toFixed(2).replace('.', ',')} <span>/ ${p.unidade}</span>
+            </div>
+            <button class="add-btn" onclick="adicionarAoCarrinho('${p.codigo}')">
+              + Adicionar ao Pedido
+            </button>
+          </div>
+        </div>
+      `).join('');
     }
 
-    // Carrega a tabela assim que o documento estiver pronto
-    document.addEventListener("DOMContentLoaded", carregarTabela);
-  </script>
+    function adicionarAoCarrinho(codigo) {
+      const itemExistente = carrinho.find(item => item.codigo === codigo);
+      if (itemExistente) {
+        itemExistente.quantidade++;
+      } else {
+        const produto = produtos.find(p => p.codigo === codigo);
+        carrinho.push({ ...produto, quantidade: 1 });
+      }
+      atualizarCarrinho();
+    }
 
+    function alterarQtd(codigo, delta) {
+      const item = carrinho.find(i => i.codigo === codigo);
+      if (item) {
+        item.quantidade += delta;
+        if (item.quantidade <= 0) {
+          carrinho = carrinho.filter(i => i.codigo !== codigo);
+        }
+      }
+      atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      const cartCount = document.getElementById('cart-count');
+      const cartTotalValue = document.getElementById('cart-total-value');
+
+      const totalItens = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
+      const totalValor = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
+
+      cartCount.innerText = `${totalItens} ${totalItens === 1 ? 'item' : 'itens'}`;
+      cartTotalValue.innerText = `R$ ${totalValor.toFixed(2).replace('.', ',')}`;
+
+      if (carrinho.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="empty-cart-msg">Seu carrinho está vazio.<br>Clique em "+ Adicionar" nas frutas!</p>';
+        return;
+      }
+
+      cartItemsContainer.innerHTML = carrinho.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <strong>${item.nome}</strong>
+            <small>[${item.codigo}] — R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}</small>
+          </div>
+          <div class="cart-item-controls">
+            <button class="qty-btn" onclick="alterarQtd('${item.codigo}', -1)">-</button>
+            <span>${item.quantidade}</span>
+            <button class="qty-btn" onclick="alterarQtd('${item.codigo}', 1)">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function enviarWhatsApp() {
+      if (carrinho.length === 0) {
+        alert("Adicione pelo menos uma fruta ao pedido antes de enviar!");
+        return;
+      }
+
+      let mensagem = "Olá, Quitanda do Zé! Gostaria de fazer o seguinte pedido:\n\n";
+      
+      carrinho.forEach(item => {
+        mensagem += `• *[${item.codigo}]* ${item.nome} (${item.quantidade}x) - R$ ${(item.preco * item.quantidade).toFixed(2).replace('.', ',')}\n`;
+      });
+
+      const total = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
+      mensagem += `\n*Total a Pagar:* R$ ${total.toFixed(2).replace('.', ',')}`;
+      mensagem += `\n\nPor favor, confirmem a entrega no meu endereço!`;
+
+      const telefone = "5541999999999";
+      const url = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
+      
+      window.open(url, '_blank');
+    }
+
+    document.addEventListener("DOMContentLoaded", renderizarProdutos);
+  </script>
 </body>
 </html>
